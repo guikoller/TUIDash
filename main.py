@@ -1,6 +1,5 @@
 # main.py
 
-import sys
 from Controller.system_controller import SystemController
 
 def main():
