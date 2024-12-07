@@ -1,9 +1,7 @@
-# main.py
-
-from Controller.system_controller import SystemController
+from Controller.dashboard_controller import DashboardController
 
 def main():
-    controller = SystemController()
+    controller = DashboardController()
     controller.run()
 
 if __name__ == "__main__":

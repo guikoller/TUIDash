@@ -1,16 +1,22 @@
 import time
 from threading import Thread
+
 from Model.memory_model import MemoryModel
 from Model.cpu_model import CPUModel
 from Model.process_model import ProcessModel
-from View.system_view import SystemView
+from Model.disk_model import DiskModel
 
-class SystemController:
+from View.dashboard_view import DashboardView   
+
+
+class DashboardController:
     def __init__(self):
         self.cpu_model = CPUModel()
         self.memory_model = MemoryModel()
         self.process_model = ProcessModel()
-        self.view = SystemView()
+        self.disk_model = DiskModel()
+        
+        self.view = DashboardView()
 
     def fetch_cpu_data(self, result):
         result["CPU Info"] = self.cpu_model.get_cpu_info()
@@ -23,6 +29,9 @@ class SystemController:
 
     def fetch_process_data(self, result):
         result["Process List"] = self.process_model.get_process_list()
+        
+    def fetch_disk_data(self, result):
+        result["Disk Info"] = self.disk_model.get_disk_info()
 
     def run_in_thread(self, target, args=()):
         thread = Thread(target=target, args=args)
@@ -35,15 +44,15 @@ class SystemController:
             threads = [
                 self.run_in_thread(self.fetch_cpu_data, (data,)),
                 self.run_in_thread(self.fetch_memory_data, (data,)),
-                self.run_in_thread(self.fetch_process_data, (data,))
+                self.run_in_thread(self.fetch_process_data, (data,)),
+                self.run_in_thread(self.fetch_disk_data, (data,))
             ]
 
             for thread in threads:
                 thread.join()
 
-            self.view.display_system_data(data)
-            time.sleep(5)
+            self.view.display_dashboard(data)
+            time.sleep(3)
 
     def run(self):
-        # Run the data update loop in the main thread
         self.update_data()

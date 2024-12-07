@@ -1,26 +1,16 @@
-import os
-import datetime
-
 class SystemView:
-    def display_system_data(self, data):
-        self.clear_console()
-        print("\n" + "=" * 40)
-        print("System Information:")
-        print("=" * 40)
-        print(f"Timestamp: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-        print("=" * 40)
-        
-        for key, value in data.items():
-            if isinstance(value, dict):
-                print(f"{key}:")
-                for sub_key, sub_value in value.items():
-                    print(f"  {sub_key}: {sub_value}")
-            elif isinstance(value, list):
-                print(f"{key}:")
-                for item in value:
-                    print(f"  - {item}")
-            else:
-                print(f"{key}: {value}")
+    def display_cpu_info(self, cpu_info, usage):
+        print("CPU Info:")
+        for key, value in cpu_info.items():
+            print(f"{key}: {value}")
+        print(f"CPU Usage: {usage}%\n")
 
-    def clear_console(self):
-        os.system('clear' if os.name == 'posix' else 'cls')
+    def display_memory_info(self, memory_info, usage):
+        print("Memory Info:")
+        for key, value in memory_info.items():
+            print(f"{key}: {value}")
+        print(f"Memory Usage: {usage}%\n")
+    
+    def display_system_data(self, data):
+        self.display_cpu_info(data["CPU Info"], data["CPU Usage"])
+        self.display_memory_info(data["Memory Info"], data["Memory Usage"])
