@@ -22,7 +22,10 @@ class ProcessModel:
                     for line in status_data:
                         if line.startswith("VmRSS:"):
                             memory_usage = line.split(":")[1].strip()
+                            memory_usage = int(line.split(":")[1].strip().replace(" kB", ""))
                             break
+                        else:
+                            memory_usage = 0
                         
                     # Read process status and runtime
                     process_status = stat_data[2]
@@ -39,7 +42,6 @@ class ProcessModel:
                         "Status": process_status,
                         "RunTime": run_time_seconds
                     })
-
 
         return {
             "processes": all_processes,

@@ -1,13 +1,12 @@
-import time
 from threading import Thread
+import time
 
 from Model.memory_model import MemoryModel
 from Model.cpu_model import CPUModel
 from Model.process_model import ProcessModel
 from Model.disk_model import DiskModel
 
-from View.dashboard_view import DashboardView   
-
+from View.dashboard_view import DashboardView
 
 class DashboardController:
     def __init__(self):
@@ -50,9 +49,13 @@ class DashboardController:
 
             for thread in threads:
                 thread.join()
+                
+            self.view.update(data)
+            print("Data updated")
 
-            self.view.display_dashboard(data)
-            time.sleep(3)
+            time.sleep(1)
 
     def run(self):
-        self.update_data()
+        thread = Thread(target=self.update_data)
+        thread.start()
+        self.view.run()

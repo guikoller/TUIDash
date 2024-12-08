@@ -1,0 +1,7 @@
+Grid {
+    grid-size: 2 2;
+}
+
+ProcessView {
+    column-span: 2;
+}

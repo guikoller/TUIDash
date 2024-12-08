@@ -1,24 +1,41 @@
-import os
+from textual.app import App, ComposeResult
+from textual.widgets import Footer, Header, Placeholder
+from textual.binding import Binding
+from textual.containers import Grid
+from textual.reactive import reactive
+
 
 from View.system_view import SystemView
 from View.process_view import ProcessView
 from View.disk_view import DiskView
 
-class DashboardView:
+
+class DashboardView(App):
+    CSS_PATH = "../Style/dashboard.tcss"
+    
+    data: reactive[dict] = {}
+    
+    BINDINGS = [
+        Binding(key="q", action="quit", description="Quit the app"),
+        ("d", "toggle_dark", "Toggle dark mode")]    
+
     def __init__(self):
+        super().__init__()
         self.system_view = SystemView()
         self.process_view = ProcessView()
         self.disk_view = DiskView()
         
-    def clear_console(self):
-         os.system('clear')
-
-    def display_dashboard(self, data):
-        self.clear_console()
-        print("\n====== System Dashboard ======\n")
-        self.system_view.display_system_data(data)
-        self.process_view.display_process_data(data["Process List"])
-        self.disk_view.display_disk_data(data["Disk Info"])
-        print("================================\n")
+        
+    def update(self, data):
+        print("-------------------------Updating view-------------------------")
+        # print(data)
+        self.system_view.update(data)
+        self.process_view.update(data["Process List"])
         
 
+    def compose(self) -> ComposeResult:
+        yield Footer()
+        with Grid():
+            yield self.system_view
+            yield Placeholder("aaa")
+            yield self.process_view
