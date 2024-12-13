@@ -34,14 +34,22 @@ class ProcessModel:
                     clock_ticks_per_second = os.sysconf(os.sysconf_names['SC_CLK_TCK'])
                     run_time_seconds = (start_time_ticks / clock_ticks_per_second)
 
+                    # Calculate CPU usage
+                    total_time = int(stat_data[13]) + int(stat_data[14]) + int(stat_data[15]) + int(stat_data[16])
+                    uptime = float(open("/proc/uptime", "r").readline().split()[0])
+                    cpu_usage = 100 * ((total_time / clock_ticks_per_second) / uptime)
+                    
                     all_processes.append({
                         "PID": pid,
                         "Name": stat_data[1].strip("()"),
                         "User": user,
+                        "CPU": cpu_usage,
                         "Memory": memory_usage,
                         "Status": process_status,
                         "RunTime": run_time_seconds
                     })
+                    
+                    all_processes.sort(key=lambda x: x["CPU"], reverse=True)
 
         return {
             "processes": all_processes,
