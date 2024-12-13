@@ -37,5 +37,5 @@ class DashboardView(App):
         yield Footer()
         with Grid():
             yield self.system_view
-            yield Placeholder("aaa")
+            yield self.disk_view
             yield self.process_view

@@ -1,5 +1,5 @@
 import psutil
-
+from operator import itemgetter
 class DiskModel:
     def get_disk_info(self):
         disk_info = {"partitions": []}
@@ -12,11 +12,12 @@ class DiskModel:
                     "Device": partition.device,
                     "Mountpoint": partition.mountpoint,
                     "FileSystemType": partition.fstype,
-                    "Total": f"{usage.total // (1024 ** 3)} GB",
-                    "Used": f"{usage.used // (1024 ** 3)} GB",
-                    "Free": f"{usage.free // (1024 ** 3)} GB",
+                    "Total": usage.total,
+                    "Used": usage.used,
+                    "Free": usage.free,
                     "UsagePercent": f"{usage.percent}%",
                 })
+            disk_info["partitions"].sort(key=itemgetter("Total"), reverse=True)
         except Exception as e:
             disk_info["error"] = f"Error retrieving disk information: {e}"
 

@@ -53,7 +53,7 @@ class DashboardController:
             self.view.update(data)
             print("Data updated")
 
-            time.sleep(1)
+            time.sleep(2)
 
     def run(self):
         thread = Thread(target=self.update_data)
