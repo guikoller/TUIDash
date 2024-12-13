@@ -10,7 +10,18 @@ from textual.app import  ComposeResult
 from textual.widgets import DataTable
 from textual.widget import Widget
 
-COLUMNS = ["PID", "Name", "User", "Memory (kB)","CPU (%)", "Status"]
+COLUMNS = [
+            "PID", 
+            "Name", 
+            "User", 
+            "CPU (%)", 
+            "Memory (kB)",
+            "Threads",
+            "Total Memory Pages",
+            "Code Pages",
+            "Data Pages",
+            "Status"
+        ]
 
 
 class ProcessView(Widget):
@@ -40,7 +51,18 @@ class ProcessView(Widget):
         table = self.query_one(DataTable)
         table.clear()
         for process in data["processes"]:
-            row = (process["PID"], process["Name"], process["User"], process["Memory"], process["CPU"], process["Status"])
+            row = (
+                process["PID"], 
+                process["Name"], 
+                process["User"], 
+                process["CPU"], 
+                process["Memory"], 
+                process["Threads"],
+                process["Total Memory Pages"],
+                process["Code Pages"],
+                process["Data Pages"],
+                process["Status"]
+            )
             table.add_row(*row)
     
 
