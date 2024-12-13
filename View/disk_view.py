@@ -30,9 +30,8 @@ class DiskView(Widget):
                 f"Total: {partition_info['Total']}\n"
                 f"Used: {partition_info['Used']}\n"
                 f"Free: {partition_info['Free']}\n"
-                f"UsagePercent: {partition_info['UsagePercent']}"
+                f"Usage: {partition_info['UsagePercent']}"
             )
         else:
             disk_info = "No data available"
         self.query_one("#disk_info").text=disk_info
-
