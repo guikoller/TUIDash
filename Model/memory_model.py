@@ -20,7 +20,7 @@ class MemoryModel:
                 meminfo = {}
                 for line in f:
                     key, value = line.split(":")
-                    meminfo[key.strip()] = int(value.split()[0])  # Convert to kB
+                    meminfo[key.strip()] = int(value.split()[0])  #kB
                 total_memory = meminfo["MemTotal"]
                 available_memory = meminfo["MemAvailable"]
                 used_memory = total_memory - available_memory

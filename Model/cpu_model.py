@@ -19,6 +19,7 @@ class CPUModel:
         return cpu_info
 
     def get_cpu_usage(self):
+        # returns the sum of all CPU times (total time) and the idle time (cpu_times[3])
         def parse_cpu_times():
             try:
                 with open("/proc/stat", "r") as f:
