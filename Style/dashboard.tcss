@@ -5,3 +5,11 @@ Grid {
 ProcessView {
     column-span: 2;
 }
+
+SystemView {
+    padding: 1;
+}
+
+DiskView {
+    padding: 1;
+}
