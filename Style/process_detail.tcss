@@ -1,31 +1,70 @@
+/* Style for the main screen */
 ProcessDetail {
-    align: center middle;
+    background: $background;
+    color: $text;
 }
 
-#main-container {
-    width: 60%;
-    height: 85%;
-    padding: 2 4;
-    background: $panel;
-    border: solid $accent;
-    overflow-y: auto;
-}
-
-#main-container Label {
-    margin-bottom: 1;
+/* Main grid layout */
+#main-grid {
+    grid-size: 1 4;
+    grid-rows: auto auto 1fr auto;
+    height: 100%;
+    width: 100%;
 }
 
 #header {
-    color: $text;
+    width: 100%;
+    content-align: center middle;
     text-style: bold;
-    margin-bottom: 2;
+    background: $panel;
+    color: $text;
 }
 
+/* Content grid layout */
+#content-grid {
+    grid-size: 2 1;
+    grid-columns: 7fr 3fr;
+    padding: 1 1 0 1;
+}
+
+/* Basic Information and Resource Counts styling */
+#basic-info, #resource-counts {
+    padding: 1;
+    border: solid $accent;
+    background: $panel;
+    margin: 0 1 0 0; /* Top, Right, Bottom, Left */
+}
+
+/* Scrollable Resource Details */
+#resource-details {
+    border: solid $accent;
+    margin: 1;
+    padding: 0 1 1 1;
+    height: auto;
+}
+
+/* Style for ScrollableContainer */
+ScrollableContainer#resource-details {
+    height: 1fr;
+    overflow: auto;
+}
+
+/* Section headers */
+#section-header {
+    text-style: bold;
+    margin-bottom: 1;
+}
+
+.subsection-header {
+    text-style: bold;
+    margin-top: 1;
+    margin-bottom: 1;
+}
 Button#close {
     width: 100%;
-    background: $accent;
-}
-
-Static {
-    height: 1fr;
+    align: center middle;
+    background: $panel;
+    color: $text;
+    border: none;
+    padding: 1;
 }
