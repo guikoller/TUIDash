@@ -1,0 +1,31 @@
+ProcessDetail {
+    align: center middle;
+}
+
+#main-container {
+    width: 60%;
+    height: 85%;
+    padding: 2 4;
+    background: $panel;
+    border: solid $accent;
+    overflow-y: auto;
+}
+
+#main-container Label {
+    margin-bottom: 1;
+}
+
+#header {
+    color: $text;
+    text-style: bold;
+    margin-bottom: 2;
+}
+
+Button#close {
+    width: 100%;
+    background: $accent;
+}
+
+Static {
+    height: 1fr;
+}
