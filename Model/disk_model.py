@@ -8,7 +8,6 @@ def convert_to_gb(bytes_size):
     return f"{(bytes_size / (1024 ** 3)):.2f}"
 class DiskModel:
     def __init__(self):
-        # ThreadPoolExecutor for handling blocking I/O operations
         self.executor = ThreadPoolExecutor()
 
     def get_disk_info(self):
@@ -28,10 +27,8 @@ class DiskModel:
                     "UsagePercent": f"{usage.percent}",
                 })
             except PermissionError:
-                # Skip partitions that cannot be accessed due to permissions
                 continue
             except Exception:
-                # Optionally, log or handle other exceptions
                 continue
         disk_info["partitions"].sort(key=itemgetter("Total"), reverse=True)
         return disk_info
@@ -44,10 +41,8 @@ class DiskModel:
                     if entry.is_dir(follow_symlinks=False):
                         subdirs.append(entry.name)
         except PermissionError:
-            # Handle directories that cannot be accessed
             pass
         except Exception:
-            # Handle other potential exceptions
             pass
         return sorted(subdirs, key=str.lower)
 
@@ -58,10 +53,8 @@ class DiskModel:
                 for entry in it:
                     contents.append( (entry.name, entry.is_dir(follow_symlinks=False)) )
         except PermissionError:
-            # Handle directories that cannot be accessed
             contents.append( ("Permission Denied", False) )
         except Exception as e:
-            # Handle other potential exceptions
             contents.append( (f"Error: {str(e)}", False) )
         return sorted(contents, key=lambda x: (not x[1], x[0].lower()))
 

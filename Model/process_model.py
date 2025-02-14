@@ -83,11 +83,17 @@ class ProcessModel:
                         open_files_count = len(open_files_list)
                         open_sockets_count = len(open_sockets_list)
                         open_pipes_count = len(open_pipes_list)
-
-                        # Semaphores (Note: System V semaphores are global, not per-process)
                         semaphores_list = []
                         semaphores_count = 0
-                        # Collect semaphore information if available (may require root privileges)
+
+                        
+                        semaphores_path = f"/proc/{pid}/sysvipc/sem"
+                        if os.path.exists(semaphores_path):
+                            with open(semaphores_path, "r") as sem_file:
+                                for line in sem_file:
+                                    if line.strip():
+                                        semaphores_list.append(line.strip())
+                                        semaphores_count += 1
 
                         # Build process information dictionary
                         process_info = {
